@@ -17,6 +17,7 @@
 package com.example.android.BluetoothChat;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 
 import com.example.android.BluetoothChat.Web.Main;
@@ -64,7 +65,7 @@ public class BluetoothChat extends Activity {
 	PowerManager.WakeLock wl;
 	Data_Processor _processData;
 	Main _webDataSender;
-    LocationListener mlocListener = new MyLocationListener();
+    LocationListener mlocListener = new MyLocationListener(this);
 	
 	public void sendTest(String message)
 	{
@@ -124,7 +125,14 @@ public class BluetoothChat extends Activity {
     	DateFormat currentDateTime = DateFormat.getDateTimeInstance();
     	String fileName = currentDateTime.format(System.currentTimeMillis());
     	fileName = "solarSplash_"+fileName.replace(' ', '_')+".csv";
-    	_fileWriter = new FileWriter(new File( Environment.getExternalStorageDirectory()+"/ssdata", fileName));
+    	fileName = "test.csv";
+    	File sdCard = Environment.getExternalStorageDirectory();
+    	File dir = new File (sdCard.getAbsolutePath() + "/ssdata");
+    	dir.mkdirs();
+    	File file = new File(dir, fileName);
+    	
+    	_fileWriter = new FileWriter(file);
+    	//_fileWriter = new FileWriter(new File( Environment.getExternalStorageDirectory()+"/ssdata", fileName));
     	
     	_InputParser = new InputParser(this, _fileWriter, "ERROR_"+fileName);
 

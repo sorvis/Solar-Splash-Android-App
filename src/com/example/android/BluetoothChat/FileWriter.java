@@ -9,12 +9,19 @@ import java.io.OutputStream;
 public class FileWriter 
 {
 	private File _file;
-	private OutputStream _OutputStream;
+	private FileOutputStream _OutputStream;
 	
 	public FileWriter(File file)
 	{
 		_file = file;
+		try {
+			_file.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//_file = new File(Environment.getExternalStorageDirectory(), "DemoFile.csv");
+		
 		
 		try 
 		{
