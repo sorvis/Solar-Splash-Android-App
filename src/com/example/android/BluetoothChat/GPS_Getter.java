@@ -1,5 +1,7 @@
 package com.example.android.BluetoothChat;
 
+import java.util.List;
+
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -9,17 +11,30 @@ import android.os.Bundle;
 public class GPS_Getter 
 {
 	BluetoothChat _BluetoothChat;
+	LocationManager _locationManager;
 	
 	public GPS_Getter(BluetoothChat bluetoothChat)
 	{
 		_BluetoothChat = bluetoothChat;
-		bluetoothChat.displayLine("GPS started.");
 		setUpGPS();
+	}
+	public void printProviders()
+	{
+		List<String>providers = _locationManager.getAllProviders();
+		for(String item : providers)
+		{
+			_BluetoothChat.displayLine(item);
+		}
+	}
+	public float getSpeed()
+	{
+		Location spot =_locationManager.getLastKnownLocation("gps");
+		return spot.getSpeed();
 	}
 	private void setUpGPS()
 	{
 		// Acquire a reference to the system Location Manager
-		LocationManager locationManager = (LocationManager) _BluetoothChat.getSystemService(Context.LOCATION_SERVICE);
+		_locationManager = (LocationManager) _BluetoothChat.getSystemService(Context.LOCATION_SERVICE);
 
 		// Define a listener that responds to location updates
 		LocationListener locationListener = new LocationListener() 
@@ -47,7 +62,7 @@ public class GPS_Getter
 		  };
 
 		// Register the listener with the Location Manager to receive location updates
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+		_locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
 		//double location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER).getLatitude();
 		//String networkProvider = LocationManager.NETWORK_PROVIDER;

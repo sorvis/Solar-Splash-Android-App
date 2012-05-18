@@ -192,11 +192,15 @@ public class BluetoothChat extends Activity {
     	
 		newRun();
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
+		//wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
+		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
 		wl.acquire();
 		GPS_Getter _GPS_Getter = new GPS_Getter(this);		        
         _view = new view(this, _fileWriter);
         _processData = new Data_Processor(_view, this);
+        //_GPS_Getter.printProviders();
+        //float speed = _GPS_Getter.getSpeed();
+        //displayLine(String.valueOf(speed));
         //_webDataSender = new Main("http://10.76.100.223/solarsplash/android.php", 1, this, _view);
 		//End Solar Splash****************************************************
     }
