@@ -20,12 +20,15 @@ import java.io.File;
 import java.text.DateFormat;
 
 import com.example.android.BluetoothChat.Web.Main;
+import com.example.android.BluetoothChat.GPS.*;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -61,6 +64,7 @@ public class BluetoothChat extends Activity {
 	PowerManager.WakeLock wl;
 	Data_Processor _processData;
 	Main _webDataSender;
+    LocationListener mlocListener = new MyLocationListener();
 	
 	public void sendTest(String message)
 	{
@@ -109,6 +113,10 @@ public class BluetoothChat extends Activity {
     public void closeFile()
     {
     	_fileWriter.closeFile();
+    }
+    public float getCurrentSpeed()
+    {
+    	return ((MyLocationListener) mlocListener).getSpeed();
     }
     
     public void newRun()
@@ -195,9 +203,14 @@ public class BluetoothChat extends Activity {
 		//wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
 		wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
 		wl.acquire();
-		GPS_Getter _GPS_Getter = new GPS_Getter(this);		        
+		//GPS_Getter _GPS_Getter = new GPS_Getter(this);		        
         _view = new view(this, _fileWriter);
         _processData = new Data_Processor(_view, this);
+        
+        /* Use the LocationManager class to obtain GPS locations */
+        LocationManager mlocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        mlocManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+        
         //_GPS_Getter.printProviders();
         //float speed = _GPS_Getter.getSpeed();
         //displayLine(String.valueOf(speed));
