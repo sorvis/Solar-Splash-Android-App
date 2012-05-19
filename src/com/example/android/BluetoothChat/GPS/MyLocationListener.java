@@ -32,7 +32,7 @@ public class MyLocationListener implements LocationListener
 	    	loc.getLatitude();
 	    	loc.getLongitude();
 	    	speed = loc.getSpeed(); // speed in m/s
-	    	_chat.sendMessage("speed: "+speed);
+	    	//_chat.displayLine("speed: "+speed);		//pop speed out to display for testing purposes
 	    }
 	
 	    @Override
