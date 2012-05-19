@@ -43,18 +43,24 @@ public class InputParser// extends Observer
 		float[] newLabelArray = new float[tempArray.length+1];
 		System.arraycopy(tempArray, 0, newLabelArray, 0, tempArray.length);
 		newLabelArray[tempArray.length] = _BluetoothChat.getCurrentSpeed();
+		tempArray = newLabelArray;
+		
+		message += "," + _BluetoothChat.getCurrentSpeed();
 		
 		sendToView(message);
-		_BluetoothChat.receiveData(newLabelArray);
+		_BluetoothChat.receiveData(tempArray);
 	}
 	private void sendDataToModel(String message, String[] labelsArray)
 	{
 		String[] newLabelArray = new String[labelsArray.length+1];
 		System.arraycopy(labelsArray, 0, newLabelArray, 0, labelsArray.length);
-		newLabelArray[labelsArray.length] = "_BRPM";
+		newLabelArray[labelsArray.length] = "BRPM";
+		labelsArray = newLabelArray;
+		
+		message += ","+"BRPM";
 		
 		sendToView(message);
-		_BluetoothChat.receiveHeaders(newLabelArray);
+		_BluetoothChat.receiveHeaders(labelsArray);
 	}
 	
 	public void parseMessage(String message) //throws IOException
