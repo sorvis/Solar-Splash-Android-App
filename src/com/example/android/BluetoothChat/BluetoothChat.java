@@ -124,8 +124,9 @@ public class BluetoothChat extends Activity {
     {  
     	DateFormat currentDateTime = DateFormat.getDateTimeInstance();
     	String fileName = currentDateTime.format(System.currentTimeMillis());
+    	fileName = fileName.replace(':', '-');
     	fileName = "solarSplash_"+fileName.replace(' ', '_')+".csv";
-    	fileName = "test.csv";
+    	//fileName = "test.csv";
     	File sdCard = Environment.getExternalStorageDirectory();
     	File dir = new File (sdCard.getAbsolutePath() + "/ssdata");
     	dir.mkdirs();

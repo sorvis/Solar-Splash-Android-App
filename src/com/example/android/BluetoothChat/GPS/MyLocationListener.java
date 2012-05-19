@@ -29,8 +29,8 @@ public class MyLocationListener implements LocationListener
 	    @Override
 	    public void onLocationChanged(Location loc)
 	    {
-	    	loc.getLatitude();
-	    	loc.getLongitude();
+	    	//loc.getLatitude();
+	    	//loc.getLongitude();
 	    	speed = loc.getSpeed(); // speed in m/s
 	    	//_chat.displayLine("speed: "+speed);		//pop speed out to display for testing purposes
 	    }
